@@ -332,6 +332,11 @@ button {
 
     transition:
         .25s ease;
+
+    /* Helps touchscreens */
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
 }
 
 
@@ -406,6 +411,9 @@ button:active {
 
     backdrop-filter:
         blur(10px);
+
+    pointer-events:
+        none;
 }
 
 
@@ -413,18 +421,26 @@ button:active {
    NAVIGATION
 ========================================================= */
 
+/*
+   IMPORTANT:
+   Navigation is NOT fixed anymore.
+   It stays in normal page flow so it
+   cannot cover buttons/content on phones.
+*/
+
 .nav {
 
-    position: fixed;
+    position: relative;
 
-    z-index: 100;
+    z-index: 110;
 
-    left: 50%;
+    width: min(1050px, 94vw);
 
-    bottom: 20px;
+    margin:
+        0 auto;
 
-    transform:
-        translateX(-50%);
+    padding:
+        12px 20px 25px;
 
     display:
         flex;
@@ -438,18 +454,24 @@ button:active {
     gap:
         10px;
 
-    width:
-        auto;
+    background:
+        transparent;
 }
 
 
 .nav button {
 
     padding:
-        10px 17px;
+        11px 18px;
 
     font-size:
         13px;
+
+    min-height:
+        44px;
+
+    min-width:
+        100px;
 }
 
 
@@ -1063,13 +1085,48 @@ button:active {
 @media(max-width:760px) {
 
 
+    html,
+    body {
+
+        width:
+            100%;
+
+        overflow-x:
+            hidden;
+    }
+
+
     .page {
+
+        position:
+            fixed;
+
+        inset:
+            0;
+
+        width:
+            100%;
+
+        min-height:
+            100dvh;
+
+        height:
+            100dvh;
 
         align-items:
             flex-start;
 
         padding:
-            70px 14px 95px;
+            65px 12px 25px;
+
+        overflow-y:
+            auto;
+
+        overflow-x:
+            hidden;
+
+        -webkit-overflow-scrolling:
+            touch;
     }
 
 
@@ -1085,7 +1142,10 @@ button:active {
             block;
 
         margin:
-            auto;
+            0 auto;
+
+        padding-bottom:
+            35px;
     }
 
 
@@ -1095,13 +1155,13 @@ button:active {
             100%;
 
         padding:
-            28px 20px;
+            28px 18px;
 
         border-radius:
             23px;
 
         margin:
-            0 auto;
+            0 auto 25px;
     }
 
 
@@ -1214,7 +1274,7 @@ button:active {
     }
 
 
-    /* Buttons */
+    /* Choice buttons */
 
     .choices {
 
@@ -1223,6 +1283,12 @@ button:active {
 
         align-items:
             stretch;
+
+        width:
+            100%;
+
+        margin-top:
+            25px;
     }
 
 
@@ -1230,33 +1296,127 @@ button:active {
 
         width:
             100%;
+
+        min-height:
+            52px;
+
+        padding:
+            14px 18px;
     }
 
 
+    /*
+       MOBILE NAVIGATION FIX
+
+       The navigation is now part of the
+       page instead of being fixed over it.
+    */
+
     .nav {
 
+        position:
+            relative;
+
+        left:
+            auto;
+
         bottom:
-            12px;
+            auto;
+
+        transform:
+            none;
 
         width:
             100%;
 
+        margin:
+            0 auto;
+
         padding:
-            0 12px;
+            10px 12px 35px;
+
+        display:
+            flex;
+
+        justify-content:
+            center;
+
+        align-items:
+            center;
+
+        gap:
+            10px;
+
+        z-index:
+            110;
+
+        pointer-events:
+            auto;
     }
 
 
     .nav button {
 
+        flex:
+            1;
+
+        width:
+            auto;
+
+        min-width:
+            0;
+
+        min-height:
+            50px;
+
         padding:
-            10px 15px;
+            12px 10px;
+
+        font-size:
+            14px;
+
+        touch-action:
+            manipulation;
+    }
+
+
+    /*
+       Make sure the card has enough room
+       before reaching the bottom.
+    */
+
+    .page .container {
+
+        padding-bottom:
+            70px;
+    }
+
+
+    /*
+       Give long content extra room
+       at the bottom when scrolling.
+    */
+
+    .page .card {
+
+        margin-bottom:
+            30px;
     }
 
 
     .progress {
 
         top:
-            12px;
+            10px;
+
+        z-index:
+            120;
+
+        font-size:
+            11px;
+
+        padding:
+            6px 11px;
     }
 
 
@@ -1264,6 +1424,86 @@ button:active {
 
         font-size:
             30px;
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONES
+========================================================= */
+
+@media(max-width:380px) {
+
+
+    .page {
+
+        padding:
+            62px 10px 20px;
+    }
+
+
+    .card {
+
+        padding:
+            24px 15px;
+
+        border-radius:
+            20px;
+    }
+
+
+    h1 {
+
+        font-size:
+            52px;
+    }
+
+
+    h2 {
+
+        font-size:
+            39px;
+    }
+
+
+    .script {
+
+        font-size:
+            24px;
+    }
+
+
+    .text-card {
+
+        font-size:
+            14px;
+
+        line-height:
+            1.7;
+    }
+
+
+    .nav {
+
+        padding:
+            8px 8px 30px;
+
+        gap:
+            7px;
+    }
+
+
+    .nav button {
+
+        font-size:
+            12px;
+
+        min-height:
+            48px;
+
+        padding:
+            11px 8px;
     }
 
 }
@@ -1474,8 +1714,6 @@ button:active {
             <div class="memories">
 
 
-                <!-- FEBRUARY 22, 2024 -->
-
                 <div class="polaroid">
 
                     <img
@@ -1493,8 +1731,6 @@ button:active {
                 </div>
 
 
-                <!-- MARCH 21, 2024 -->
-
                 <div class="polaroid">
 
                     <img
@@ -1511,8 +1747,6 @@ button:active {
 
                 </div>
 
-
-                <!-- APRIL 19, 2024 -->
 
                 <div class="polaroid">
 
@@ -1586,7 +1820,6 @@ button:active {
 
             <div class="promises">
 
-
                 <div class="promise">
 
                     <div class="num">
@@ -1594,9 +1827,7 @@ button:active {
                     </div>
 
                     <p>
-
                         From now on I swear to God I will extend my patience unawa muna or hingang malalim before mag salita or mag act.
-
                     </p>
 
                 </div>
@@ -1609,9 +1840,7 @@ button:active {
                     </div>
 
                     <p>
-
                         Hindi ako magbubuysit sa isang bagay pag dmo ako pinagbigyan d naman araw araw pasko para pagbigyan. May times na may mga bagay na hindi kayang gawin or hindi muna talaga kayang gawin.
-
                     </p>
 
                 </div>
@@ -1624,17 +1853,14 @@ button:active {
                     </div>
 
                     <p>
-
                         And lastly I will never stop loving you love ko.
 
                         <br><br>
 
                         I love you so much. ❤️
-
                     </p>
 
                 </div>
-
 
             </div>
 
@@ -1662,8 +1888,6 @@ button:active {
             </h2>
 
 
-            <!-- ENVELOPE -->
-
             <div
                 id="envelopeWrap"
                 class="envelope-wrap"
@@ -1682,77 +1906,60 @@ button:active {
             </div>
 
 
-            <!-- LETTER -->
-
             <div
                 id="letter"
                 class="letter">
-
 
                 <p>
                     Hi again love. Dami ko sinabi noh? dami ko talaga gusto sabihin e. Pero piliin ko nlng yung mga best na dapat sabihin.
                 </p>
 
-
                 <p>
                     I hope you can forgive me love and talk to me again. Grabi bigat sa dibdib ng hindi tyo magkausap. Girlfriend kita e syempre gusto ko nag co communicate tyo.
                 </p>
-
 
                 <p>
                     Pero syempre d ka naman lalayo saken kung hindi ko naman kasalanan. So basically I am tasting my own medicine right now.
                 </p>
 
-
                 <p>
                     Yung 3 days na d na tyo nag uusap parang months na para saken e sakit sakit rugu. D kona talaga kaya.
                 </p>
-
 
                 <p>
                     Ayaw ko naman patulong sa mama ko para makausap or magkaayos tyo. Eh kasalanan ko naman so dapat ayusin ko.
                 </p>
 
-
                 <p>
                     Sana binabasa mo ngayon tong website or link na gnawa ko para sayo. Pero its up to you naman love.
                 </p>
-
 
                 <p>
                     Choice mo naman if iignore mo yung mga messages ko sayo or what.
                 </p>
 
-
                 <p>
                     Baka sawang sawa kana talaga sa pagmumukha ko e jk.
                 </p>
-
 
                 <p>
                     Basta sorry love ko.
                 </p>
 
-
                 <p>
                     Hoping na magkausap na tyo ulit and hayaan mo akong bumawi ng sobra sobra syo please baby.
                 </p>
-
 
                 <p>
                     Yung SPES mo dpa ata naayos para maayos nadin naten love sayang naman yung payout mo sa December if d naten aayusin dba.
                 </p>
 
-
                 <p>
                     Tsaka want ko talaga din mag MCDO with you sayang yung sale sa mcdo app bebe hehe. ❤️
                 </p>
 
-
             </div>
 
-
-            <!-- CONTINUE AFTER LETTER -->
 
             <button
                 id="letterContinue"
@@ -1790,11 +1997,9 @@ button:active {
                 ♡
             </div>
 
-
             <h2>
                 No Pressure
             </h2>
-
 
             <div class="subtitle script">
 
@@ -1817,7 +2022,6 @@ button:active {
                 I just hope that someday, when you're ready, you'll give me a chance to make things right. ❤️
 
             </div>
-
 
             <button onclick="nextPage()">
 
@@ -1848,11 +2052,9 @@ button:active {
                 ♡
             </div>
 
-
             <h2>
                 Will You Forgive Me?
             </h2>
-
 
             <div class="subtitle script">
 
@@ -1864,16 +2066,13 @@ button:active {
 
             </div>
 
-
             <div class="choices">
-
 
                 <button onclick="forgive()">
 
                     Yes, I forgive you ❤️
 
                 </button>
-
 
                 <button
                     id="notYetButton"
@@ -1884,9 +2083,7 @@ button:active {
 
                 </button>
 
-
             </div>
-
 
             <div class="small">
 
@@ -1902,7 +2099,7 @@ button:active {
 
 
 <!-- =========================================================
-     PAGE 9 — YES
+     YES PAGE
 ========================================================= -->
 
 <section
@@ -1917,11 +2114,9 @@ button:active {
                 💜
             </div>
 
-
             <h2>
                 Thank You
             </h2>
-
 
             <div class="subtitle script">
 
@@ -1945,7 +2140,6 @@ button:active {
 
             </div>
 
-
             <button onclick="goToFinal()">
 
                 Continue ♡
@@ -1960,7 +2154,7 @@ button:active {
 
 
 <!-- =========================================================
-     PAGE 9 — NOT YET
+     NOT YET PAGE
 ========================================================= -->
 
 <section
@@ -1975,11 +2169,9 @@ button:active {
                 🤍
             </div>
 
-
             <h2>
                 I Understand
             </h2>
-
 
             <div class="subtitle script">
 
@@ -2006,7 +2198,6 @@ button:active {
                 Thank you for hearing me out. ❤️
 
             </div>
-
 
             <button onclick="goToFinal()">
 
@@ -2037,78 +2228,50 @@ button:active {
                 ♡
             </div>
 
-
             <h2>
                 One Last Thing
             </h2>
 
-
             <div
                 class="text-card center-text final">
 
-
                 <p>
-
                     Before you close this, I just want you to know one last thing, love.
-
                 </p>
 
-
                 <p>
-
                     I love you so much. And no matter what happens after this, I'm really thankful na binasa mo lahat ng sinabi ko and you gave me the time to hear me out.
-
                 </p>
 
-
                 <p>
-
                     I know words are easy to say, kaya ayoko na puro salita lang. I want to prove everything through my actions.
-
                 </p>
 
-
                 <p>
-
                     I want to be better for you, for us, and for myself.
-
                 </p>
 
-
                 <p>
-
                     I don't know exactly what will happen from here, but I really hope na hindi pa ito yung ending natin.
-
                 </p>
 
-
                 <p>
-
                     I still want more memories with you, more dates, more gala, more tawanan, more kulit, and more first-time experiences together.
-
                 </p>
 
-
                 <p>
-
                     I love you, love ko. ❤️
-
                 </p>
-
 
                 <p>
-
                     Thank you for being you.
-
                 </p>
-
 
                 <div class="signature">
 
                     Your love, Robee
 
                 </div>
-
 
             </div>
 
@@ -2125,7 +2288,6 @@ button:active {
 
 <div class="nav">
 
-
     <button
         class="secondary"
         id="backBtn"
@@ -2135,7 +2297,6 @@ button:active {
 
     </button>
 
-
     <button
         id="nextBtn"
         onclick="nextPage()">
@@ -2143,7 +2304,6 @@ button:active {
         Next →
 
     </button>
-
 
 </div>
 
@@ -2173,11 +2333,6 @@ const pages =
 
 function showPage(number) {
 
-
-    /*
-       Hide every page
-    */
-
     document
         .querySelectorAll(".page")
         .forEach(page => {
@@ -2189,10 +2344,6 @@ function showPage(number) {
 
         });
 
-
-    /*
-       Find requested page
-    */
 
     const target =
         document.querySelector(
@@ -2207,20 +2358,10 @@ function showPage(number) {
     }
 
 
-    /*
-       Show requested page
-    */
-
     target.classList.add(
         "active"
     );
 
-
-    /*
-       Reset its scroll position
-       to the top whenever a new
-       page opens.
-    */
 
     target.scrollTop = 0;
 
@@ -2260,13 +2401,6 @@ function updateProgress() {
 
 function nextPage() {
 
-
-    /*
-       Don't allow normal Next
-       to skip the forgiveness
-       question.
-    */
-
     if (
         currentPage === 8
     ) {
@@ -2275,10 +2409,6 @@ function nextPage() {
 
     }
 
-
-    /*
-       Normal pages 1 → 7
-    */
 
     if (
         currentPage >= 1 &&
@@ -2299,12 +2429,6 @@ function nextPage() {
 ========================================================= */
 
 function prevPage() {
-
-
-    /*
-       Don't go backwards from
-       special response pages.
-    */
 
     if (
         currentPage === 9 ||
@@ -2335,7 +2459,6 @@ function prevPage() {
 
 function updateNavigation() {
 
-
     const back =
         document.getElementById(
             "backBtn"
@@ -2347,10 +2470,6 @@ function updateNavigation() {
             "nextBtn"
         );
 
-
-    /*
-       BACK
-    */
 
     if (
         currentPage === 1 ||
@@ -2370,10 +2489,6 @@ function updateNavigation() {
 
     }
 
-
-    /*
-       NEXT
-    */
 
     if (
         currentPage === 1 ||
@@ -2405,20 +2520,11 @@ function updateNavigation() {
 
 function openLetter() {
 
-
-    /*
-       Hide envelope
-    */
-
     document.getElementById(
         "envelopeWrap"
     ).style.display =
         "none";
 
-
-    /*
-       Show letter
-    */
 
     document.getElementById(
         "letter"
@@ -2427,20 +2533,11 @@ function openLetter() {
     );
 
 
-    /*
-       Show Continue
-    */
-
     document.getElementById(
         "letterContinue"
     ).style.display =
         "inline-block";
 
-
-    /*
-       Scroll down slightly
-       so the letter is visible.
-    */
 
     setTimeout(() => {
 
@@ -2470,11 +2567,6 @@ function openLetter() {
 
 function forgive() {
 
-
-    /*
-       Hide all pages
-    */
-
     document
         .querySelectorAll(".page")
         .forEach(page => {
@@ -2485,10 +2577,6 @@ function forgive() {
 
         });
 
-
-    /*
-       Show YES page
-    */
 
     document
         .getElementById(
@@ -2507,10 +2595,6 @@ function forgive() {
     updateNavigation();
 
 
-    /*
-       Scroll to top
-    */
-
     document
         .getElementById(
             "yesPage"
@@ -2525,12 +2609,6 @@ function forgive() {
 ========================================================= */
 
 function notYet() {
-
-
-    /*
-       Show respectful response.
-       No forced forgiveness.
-    */
 
     document
         .querySelectorAll(".page")
@@ -2575,11 +2653,6 @@ function notYet() {
 
 function goToFinal() {
 
-
-    /*
-       Hide special pages
-    */
-
     document
         .getElementById(
             "yesPage"
@@ -2598,10 +2671,6 @@ function goToFinal() {
         );
 
 
-    /*
-       Show final page
-    */
-
     showPage(10);
 
 }
@@ -2614,7 +2683,6 @@ function goToFinal() {
 document.addEventListener(
     "keydown",
     function(event) {
-
 
         if (
             event.key === "ArrowRight"
